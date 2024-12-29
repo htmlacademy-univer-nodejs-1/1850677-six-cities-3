@@ -1,3 +1,4 @@
+import cors from 'cors';
 import { inject, injectable } from 'inversify';
 import { Config } from '../shared/libs/config/config.interface.js';
 import { RestSchema } from '../shared/libs/config/rest.schema.js';
@@ -20,7 +21,9 @@ export class RestApplication {
     @inject(Component.UserController) private readonly userController: BaseController,
     @inject(Component.OfferController) private readonly offerController: BaseController,
     @inject(Component.CommentController) private readonly commentController: BaseController,
-    @inject(Component.ExceptionFilter) private readonly appExceptionFilter: ExceptionFilter,
+    @inject(Component.ValidationExceptionFilter) private readonly validationExceptionFilter: ExceptionFilter,
+    @inject(Component.HttpErrorExceptionFilter) private readonly httpErrorExceptionFilter: ExceptionFilter,
+    @inject(Component.BaseExceptionFilter) private readonly baseExceptionFilter: ExceptionFilter,
   ) {
     this.server = express();
   }
@@ -44,10 +47,13 @@ export class RestApplication {
     );
     const authenticateMiddleware = new AuthenticateMiddleware(this.config.get('JWT_SECRET'));
     this.server.use(authenticateMiddleware.execute.bind(authenticateMiddleware));
+    this.server.use(cors());
   }
 
   private async _initExceptionFilters() {
-    this.server.use(this.appExceptionFilter.catch.bind(this.appExceptionFilter));
+    this.server.use(this.validationExceptionFilter.catch.bind(this.validationExceptionFilter));
+    this.server.use(this.httpErrorExceptionFilter.catch.bind(this.httpErrorExceptionFilter));
+    this.server.use(this.baseExceptionFilter.catch.bind(this.baseExceptionFilter));
   }
 
   private async _initDb() {

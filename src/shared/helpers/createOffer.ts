@@ -12,7 +12,7 @@ export function createOffer(offerData: string): Offer {
     name, email, avatar, commentCount, coordinates
   ] = offerData.replace('\n', '').split('\t');
 
-  const user: User = {
+  const user = {
     email,
     name,
     avatar,
@@ -35,7 +35,7 @@ export function createOffer(offerData: string): Offer {
     price: Number.parseInt(price, 10),
     conveniences: conveniences.split(';')
       .map((convenience) => convenience as Convenience),
-    user: user,
+    user: user as User,
     commentCount: Number.parseInt(commentCount, 10),
     coordinates
   };

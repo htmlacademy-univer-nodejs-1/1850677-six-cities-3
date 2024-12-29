@@ -1,5 +1,6 @@
 import { IsEmail, IsString, Length } from 'class-validator';
 import { CreateUserMessages } from './create-user.messages.js';
+import { UserType } from '../../../types/user-type.enum.js';
 
 export class CreateUserDto {
   @IsString({ message: CreateUserMessages.name.invalidFormat })
@@ -13,7 +14,7 @@ export class CreateUserDto {
   public avatar?: string;
 
   @IsString({ message: CreateUserMessages.type.invalidFormat })
-  public type!: string;
+  public type!: UserType;
 
   @IsString({ message: CreateUserMessages.password.invalidFormat })
   @Length(6, 12, { message: CreateUserMessages.password.lengthField })
