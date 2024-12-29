@@ -11,3 +11,6 @@ export * from './token-payload.type.js';
 export * from './sort-type.enum.js';
 export * from './param-offer-id.js';
 export * from './document-exists.interface.js';
+export * from './service-error.enum.js';
+export * from './unknown-record,type.js';
+export * from './unknown-record,type.js';

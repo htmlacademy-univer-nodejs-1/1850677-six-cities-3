@@ -1,6 +1,7 @@
 import { createSHA256 } from '../../helpers/hash.js';
 import { User, UserType } from '../../types/index.js';
-import { defaultClasses, getModelForClass, modelOptions, prop } from '@typegoose/typegoose';
+import { defaultClasses, getModelForClass, modelOptions, prop, Ref } from '@typegoose/typegoose';
+import { OfferEntity } from '../offer/offer.entity.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface UserEntity extends defaultClasses.Base { }
@@ -14,40 +15,37 @@ export interface UserEntity extends defaultClasses.Base { }
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class UserEntity extends defaultClasses.TimeStamps implements User {
   @prop({
-    required: true,
-    minlength: [1, 'Min length for name is 1'],
-    maxlength: [15, 'Max length for name is 15']
+    required: true
   })
   public name: string;
 
   @prop({
     unique: true,
-    required: true,
-    match: [/^.+@.+$/, 'Email is incorrect']
+    required: true
   })
   public email: string;
 
   @prop({
     required: false,
-    default: '',
-    match: [/.*\.(?:jpg|png)/, 'Avatar must be jpg or png']
+    default: 'avatar-max.jpg',
   })
   public avatar?: string;
 
   @prop({
     required: false,
-    default: UserType.Common,
-    type: () => String,
     enum: UserType
   })
-  public type: string;
-
-  public favoriteOffers!: string[];
+  public type: UserType;
 
   @prop({
     required: true,
-    minlength: [6, 'Min length for password is 6'],
-    //maxlength: [12, 'Max length for password is 12'], TODO: delete
+    ref: 'OfferEntity',
+    default: []
+  })
+  public favoriteOffers!: Ref<OfferEntity>[];
+
+  @prop({
+    required: true,
   })
   private password?: string;
 

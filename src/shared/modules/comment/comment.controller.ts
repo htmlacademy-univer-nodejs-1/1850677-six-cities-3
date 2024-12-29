@@ -13,6 +13,7 @@ import { fillDTO } from '../../helpers/common.js';
 import { CommentRdo } from './rdo/comment.rdo.js';
 import { PrivateRouteMiddleware } from '../../libs/rest/middleware/private-root.middleware.js';
 import { ValidateDtoMiddleware } from '../../libs/rest/middleware/validate-dto.middleware.js';
+import { UnknownRecord } from '../../types/unknown-record,type.js';
 
 @injectable()
 export class CommentController extends BaseController {
@@ -32,7 +33,7 @@ export class CommentController extends BaseController {
   }
 
   public async create(
-    {body, user}: Request<Record<string, unknown>, Record<string, unknown>, CreateCommentDto>,
+    { body, user }: Request<UnknownRecord, UnknownRecord, CreateCommentDto>,
     res: Response
   ): Promise<void> {
     if (!await this.offerService.exists(body.offerId)) {
