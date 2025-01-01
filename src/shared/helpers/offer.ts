@@ -37,6 +37,6 @@ export function createOffer(offerData: string): Offer {
       .map((convenience) => convenience as Convenience),
     user: user as User,
     commentCount: Number.parseInt(commentCount, 10),
-    coordinates
+    coordinates: coordinates.split(',') as unknown as number[]
   };
 }

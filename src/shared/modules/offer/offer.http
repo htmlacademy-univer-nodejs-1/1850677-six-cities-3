@@ -1,5 +1,95 @@
-# Предложения
-## Получить список предложений
+# Объявления
+
+## Получить объявление по идентификатору
+GET http://localhost:4000/offers/6773acc65e7fc774b442e6dd HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuc0BvdmVybG9vay5uZXQiLCJpZCI6IjY3NzNhNmVjNWU3ZmM3NzRiNDQyZTZkNCIsImlhdCI6MTczNTYzMjg0OSwiZXhwIjoxNzM1ODA1NjQ5fQ.Bgwumpx0YJGCnBqXxa4BciFePXxlLn9tOX3wV8tK-Xw
+
+###
+
+## Получить список объявлений
 GET http://localhost:4000/offers HTTP/1.1
 Content-Type: application/json
+
+###
+
+###
+
+## Получить список премиальных объявлений для города
+GET http://localhost:4000/offers/premium/Paris HTTP/1.1
+Content-Type: application/json
+
+###
+
+## Создать новое объявление
+
+POST http://localhost:4000/offers HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuc0BvdmVybG9vay5uZXQiLCJpZCI6IjY3NzNhNmVjNWU3ZmM3NzRiNDQyZTZkNCIsImlhdCI6MTczNTYzMjg0OSwiZXhwIjoxNzM1ODA1NjQ5fQ.Bgwumpx0YJGCnBqXxa4BciFePXxlLn9tOX3wV8tK-Xw
+
+{
+  "title": "Новое объявление",
+  "description": "Проведите время и хорошо отдохните",
+  "createdDate": "2024-11-11T00:00:00Z",
+  "city": "Paris",
+  "previewImage": "preview.png",
+  "offerImages": ["photo-1.jpg", "photo-2.jpg", "photo-3.jpg", "photo-4.jpg", "photo-5.jpg", "photo-6.jpg"],
+  "isPremium": true,
+  "isFavorite": false,
+  "rating": 5,
+  "type": "Apartment",
+  "roomCount": 2,
+  "guestCount": 3,
+  "price": 2000,
+  "conveniences": ["Fridge"],
+  "commentCount": 0,
+  "coordinates": [48.85661, 2.351499],
+  "userId": "6773a6ec5e7fc774b442e6d4"
+}
+
+###
+
+## Удалить объявление по идентификатору
+
+DELETE http://localhost:4000/offers/6773acc65e7fc774b442e6dd HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuc0BvdmVybG9vay5uZXQiLCJpZCI6IjY3NzNhNmVjNWU3ZmM3NzRiNDQyZTZkNCIsImlhdCI6MTczNTYzMjg0OSwiZXhwIjoxNzM1ODA1NjQ5fQ.Bgwumpx0YJGCnBqXxa4BciFePXxlLn9tOX3wV8tK-Xw
+
+###
+
+## Обновить объявление
+
+PATCH http://localhost:4000/offers/6773acc65e7fc774b442e6dd HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuc0BvdmVybG9vay5uZXQiLCJpZCI6IjY3NzNhNmVjNWU3ZmM3NzRiNDQyZTZkNCIsImlhdCI6MTczNTYzMjg0OSwiZXhwIjoxNzM1ODA1NjQ5fQ.Bgwumpx0YJGCnBqXxa4BciFePXxlLn9tOX3wV8tK-Xw
+
+{
+  "title": "Обновленное название",
+  "description": "Новое описание для всё того же объявления",
+  "price": 1100
+}
+
+###
+
+## Добавить объявление в избранное
+
+POST http://localhost:4000/offers/6773acc65e7fc774b442e6dd/favorite HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuc0BvdmVybG9vay5uZXQiLCJpZCI6IjY3NzNhNmVjNWU3ZmM3NzRiNDQyZTZkNCIsImlhdCI6MTczNTYzMjg0OSwiZXhwIjoxNzM1ODA1NjQ5fQ.Bgwumpx0YJGCnBqXxa4BciFePXxlLn9tOX3wV8tK-Xw
+
+###
+
+## Удалить объявление из избранного
+
+DELETE http://localhost:4000/offers/6773acc65e7fc774b442e6dd/favorite HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuc0BvdmVybG9vay5uZXQiLCJpZCI6IjY3NzNhNmVjNWU3ZmM3NzRiNDQyZTZkNCIsImlhdCI6MTczNTYzMjg0OSwiZXhwIjoxNzM1ODA1NjQ5fQ.Bgwumpx0YJGCnBqXxa4BciFePXxlLn9tOX3wV8tK-Xw
+
+###
+
+## Получить список избранных объявлений для пользователя
+
+GET http://localhost:4000/offers/users/favorite
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuc0BvdmVybG9vay5uZXQiLCJpZCI6IjY3NzNhNmVjNWU3ZmM3NzRiNDQyZTZkNCIsImlhdCI6MTczNTYzMjg0OSwiZXhwIjoxNzM1ODA1NjQ5fQ.Bgwumpx0YJGCnBqXxa4BciFePXxlLn9tOX3wV8tK-Xw
+
 ###

@@ -27,9 +27,9 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
 
   @prop({
     required: false,
-    default: 'avatar-max.jpg',
+    default: 'default-avatar.png',
   })
-  public avatar?: string;
+  public avatarPath?: string;
 
   @prop({
     required: false,
@@ -52,7 +52,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
   constructor(userData: User) {
     super();
     this.email = userData.email;
-    this.avatar = userData.avatar;
+    this.avatarPath = userData.avatarPath;
     this.name = userData.name;
     this.type = userData.type;
   }

@@ -9,7 +9,7 @@ export class HelpCommand implements Command {
     console.info(`
       Программа для подготовки данных для REST API сервера.  
 
-      Пример: cli.js --<command> [--arguments]
+      Пример: npm run ts ./src/main.cli.ts -- --<command> [--arguments]
 
       Команды:
 

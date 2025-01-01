@@ -5,5 +5,11 @@ export default class LoggedUserRdo {
   public token!: string;
 
   @Expose()
+  public avatarPath!: string;
+
+  @Expose()
+  public name!: string;
+
+  @Expose()
   public email!: string;
 }

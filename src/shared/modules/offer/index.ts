@@ -7,3 +7,4 @@ export * from './offer.container.js';
 export * from './default-offer.service.js';
 export * from './rdo/offer.rdo.js';
 export * from './offer.controller.js';
+export * from './dto/favorite-offer.dto.js';

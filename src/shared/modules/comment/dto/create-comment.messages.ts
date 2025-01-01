@@ -9,11 +9,10 @@ export const CreateCommentMessages = {
   userId: {
     invalidFormat: 'userId field must be a valid id'
   },
-  date: {
-    invalidFormat: 'date must be a valid ISO date',
+  createdDate: {
+    invalidFormat: 'date must be a valid ISO date'
   },
   rating: {
-    invalidFormat: 'rating must be a number',
-    lengthField: 'min length is 1, max length is 5',
+    invalidFormat: 'rating must be a number'
   },
 } as const;

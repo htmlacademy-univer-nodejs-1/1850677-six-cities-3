@@ -55,6 +55,6 @@ export const CreateOfferMessages = {
     invalidId: 'UserId field must be a valid id',
   },
   coordinates: {
-    invalidFormat: 'Coordinates must be a valid a string',
+    invalidFormat: 'Coordinates must be a valid a array number',
   },
 } as const;

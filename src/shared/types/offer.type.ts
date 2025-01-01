@@ -20,5 +20,5 @@ export type Offer = {
   conveniences: Convenience[];
   user: User;
   commentCount: number;
-  coordinates: string;
+  coordinates: number[];
 }
