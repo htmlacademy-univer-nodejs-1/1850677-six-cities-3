@@ -5,7 +5,7 @@ import { Logger } from '../../libs/logger/index.js';
 import { DocumentType, types } from '@typegoose/typegoose';
 import { OfferEntity } from './offer.entity.js';
 import { CreateOfferDto } from './dto/create-offer.dto.js';
-import { DEFAULT_OFFER_COUNT } from './offer.constant.js';
+import { DEFAULT_OFFER_COUNT, DEFAULT_PREMIUM_OFFERS_COUNT } from './offer.constant.js';
 import { SortType } from '../../types/sort-type.enum.js';
 import { UpdateOfferDto } from './dto/update-offer.dto.js';
 
@@ -56,9 +56,23 @@ export class DefaultOfferService implements OfferService {
     return this.offerModel
       .find({ city: city, isPremium: true })
       .sort({ createdAt: SortType.Down })
-      .limit(DEFAULT_OFFER_COUNT)
+      .limit(DEFAULT_PREMIUM_OFFERS_COUNT)
       .populate('userId')
       .exec();
+  }
+
+  public async addFavorite(offerId: string, userId: string): Promise<void> {
+    await this.offerModel.updateOne(
+      { _id: userId },
+      { $addToSet: { favorites: offerId } }
+    );
+  }
+
+  public async deleteFavorite(offerId: string, userId: string): Promise<void> {
+    await this.offerModel.updateOne(
+      { _id: userId },
+      { $pull: { favorites: offerId } }
+    );
   }
 
   public async incCommentCount(offerId: string): Promise<DocumentType<OfferEntity> | null> {

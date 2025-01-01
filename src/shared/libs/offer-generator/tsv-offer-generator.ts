@@ -9,14 +9,14 @@ import { Convenience } from '../../types/convenience.enum.js';
 const MIN_RATING = 0;
 const MAX_RATING = 5;
 
-const MIN_PRICE = 500;
-const MAX_PRICE = 2000;
+const MIN_PRICE = 100;
+const MAX_PRICE = 100000;
 
 const MIN_ROOMS = 1;
-const MAX_ROOMS = 5;
+const MAX_ROOMS = 8;
 
 const MIN_GUESTS = 1;
-const MAX_GUESTS = 5;
+const MAX_GUESTS = 10;
 
 const FIRST_WEEK_DAY = 1;
 const LAST_WEEK_DAY = 7;
@@ -39,24 +39,24 @@ export class TSVOfferGenerator implements OfferGenerator {
     const price = generateRandomValue(MIN_PRICE, MAX_PRICE);
     const conveniences = getRandomItems<string>(Object.values(Convenience));
 
-    const author = getRandomItem(this.mockData.users);
+    const user = getRandomItem(this.mockData.users);
     const email = getRandomItem(this.mockData.emails);
-    const avatar = getRandomItem(this.mockData.avatars);
+    const avatarPath = getRandomItem(this.mockData.avatars);
 
     const commentCount = generateRandomValue(0, 1000);
-    const coordinates = '';
+    const coordinates = [generateRandomValue(1, 50), generateRandomValue(1, 50)];
 
     const createdDate = dayjs()
       .subtract(generateRandomValue(FIRST_WEEK_DAY, LAST_WEEK_DAY), 'day')
       .toISOString();
 
-    const [firstName, lastName] = author.split(' ');
+    const [firstName, lastName] = user.split(' ');
 
     return [
       title, description, createdDate, city,
       previewImage, offerImages, isPremium, isFavorite,
       rating, type, roomCount, guestCount, price, conveniences,
-      firstName, lastName, email, avatar, commentCount, coordinates
+      firstName, lastName, email, avatarPath, commentCount, coordinates
     ].join('\t');
   }
 }

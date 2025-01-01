@@ -13,7 +13,9 @@ import { fillDTO } from '../../helpers/common.js';
 import { CommentRdo } from './rdo/comment.rdo.js';
 import { PrivateRouteMiddleware } from '../../libs/rest/middleware/private-root.middleware.js';
 import { ValidateDtoMiddleware } from '../../libs/rest/middleware/validate-dto.middleware.js';
-import { UnknownRecord } from '../../types/unknown-record,type.js';
+import { UnknownRecord } from '../../types/unknown-record.type.js';
+import { Config } from '../../libs/config/config.interface.js';
+import { RestSchema } from '../../libs/config/rest.schema.js';
 
 @injectable()
 export class CommentController extends BaseController {
@@ -21,8 +23,9 @@ export class CommentController extends BaseController {
     @inject(Component.Logger) protected readonly logger: Logger,
     @inject(Component.CommentService) private readonly commentService: CommentService,
     @inject(Component.OfferService) private readonly offerService: OfferService,
+    @inject(Component.Config) configService: Config<RestSchema>,
   ) {
-    super(logger);
+    super(logger, configService);
     this.logger.info('Register routes for CommentController...');
     this.addRoute({
       path: '/', method: HttpMethod.Post, handler: this.create, middlewares: [

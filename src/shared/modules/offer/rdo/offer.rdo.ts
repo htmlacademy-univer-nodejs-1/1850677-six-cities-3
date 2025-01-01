@@ -51,5 +51,5 @@ export class OfferRdo {
   public user!: User;
 
   @Expose()
-  public coordinates!: string;
+  public coordinates!: number[];
 }

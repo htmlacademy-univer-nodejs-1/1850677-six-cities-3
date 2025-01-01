@@ -9,6 +9,7 @@ import express, { Express } from 'express';
 import { getMongoURI } from '../shared/helpers/database.js';
 import { BaseController, ExceptionFilter } from '../shared/libs/rest/index.js';
 import { AuthenticateMiddleware } from '../shared/libs/rest/middleware/authenticate.middleware.js';
+import { getFullServerPath } from '../shared/helpers/common.js';
 
 @injectable()
 export class RestApplication {
@@ -44,6 +45,10 @@ export class RestApplication {
     this.server.use(
       '/upload',
       express.static(this.config.get('UPLOAD_DIRECTORY'))
+    );
+    this.server.use(
+      '/static',
+      express.static(this.config.get('STATIC_DIRECTORY_PATH'))
     );
     const authenticateMiddleware = new AuthenticateMiddleware(this.config.get('JWT_SECRET'));
     this.server.use(authenticateMiddleware.execute.bind(authenticateMiddleware));
@@ -89,6 +94,6 @@ export class RestApplication {
 
     this.logger.info('Try to init server...');
     await this._initServer();
-    this.logger.info(`Server started on https://localhost:${this.config.get('PORT')}`);
+    this.logger.info(`Server started on ${getFullServerPath(this.config.get('HOST'), this.config.get('PORT'))}`);
   }
 }

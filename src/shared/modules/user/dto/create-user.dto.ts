@@ -10,9 +10,6 @@ export class CreateUserDto {
   @IsEmail({}, { message: CreateUserMessages.email.invalidFormat })
   public email!: string;
 
-  @IsString({ message: CreateUserMessages.avatar.invalidFormat })
-  public avatar?: string;
-
   @IsString({ message: CreateUserMessages.type.invalidFormat })
   public type!: UserType;
 

@@ -142,7 +142,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/offers'
   
-  /offers/favorite:
+  /offers/users/favorite:
     get:
       tags:
         - offers
@@ -158,7 +158,7 @@ paths:
         "401":
           description: Пользователь не авторизован
   
-  /offers/favorite/{offerId}:
+  /offers/{offerId}/favorite:
     post:
       tags:
         - offers
@@ -204,7 +204,7 @@ paths:
         "401":
           description: Пользователь не авторизован
 
-  /comments/{offerId}:
+  /offers/{offerId}/comments?count=50:
     get:
       tags:
         - comments
@@ -417,7 +417,11 @@ components:
           example: 10
 
         coordinates:
-          type: string
+          type: array
+          items:
+            type: number
+            format: float
+          example: [48.85661, 2.351499]
 
     editOffer:
       type: object
@@ -493,7 +497,11 @@ components:
           example: 10
 
         coordinates:
-          type: string
+          type: array
+          items:
+            type: number
+            format: float
+          example: [48.85661, 2.351499]
 
     offers:
       type: array

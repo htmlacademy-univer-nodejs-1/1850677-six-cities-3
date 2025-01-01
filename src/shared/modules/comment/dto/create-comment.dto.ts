@@ -12,10 +12,9 @@ export default class CreateCommentDto {
   @IsMongoId({ message: CreateCommentMessages.userId.invalidFormat })
   public userId!: string;
 
-  @IsDateString({}, { message: CreateCommentMessages.date.invalidFormat })
-  public date!: Date;
+  @IsDateString({}, { message: CreateCommentMessages.createdDate.invalidFormat })
+  public createdDate!: Date;
 
   @IsNumber({}, { message: CreateCommentMessages.rating.invalidFormat })
-  @Length(1, 5, { message: CreateCommentMessages.rating.lengthField })
   public rating!: number;
 }

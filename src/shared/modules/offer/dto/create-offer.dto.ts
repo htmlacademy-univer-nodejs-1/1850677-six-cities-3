@@ -2,6 +2,7 @@ import { AccommodationType } from '../../../types/accommodation-type.enum.js';
 import { City } from '../../../types/city.enum.js';
 import { IsArray, IsBoolean, IsDateString, IsInt, IsMongoId, IsNumber, IsString, Max, MaxLength, Min, MinLength } from 'class-validator';
 import { CreateOfferMessages } from './create-offer.messages.js';
+import { Convenience } from '../../../types/convenience.enum.js';
 
 
 export class CreateOfferDto {
@@ -55,13 +56,13 @@ export class CreateOfferDto {
   public price: number;
 
   @IsArray({ message: CreateOfferMessages.conveniences.invalidFormat })
-  public conveniences: string[];
+  public conveniences: Convenience[];
 
   @IsMongoId({ message: CreateOfferMessages.userId.invalidId })
   public userId: string;
 
   public commentCount: number;
 
-  @IsString({ message: CreateOfferMessages.coordinates.invalidFormat })
-  public coordinates: string;
+  @IsArray({ message: CreateOfferMessages.coordinates.invalidFormat })
+  public coordinates!: number[];
 }

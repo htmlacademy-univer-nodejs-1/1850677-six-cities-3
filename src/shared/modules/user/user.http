@@ -1,4 +1,5 @@
 # Пользователи
+
 ## Создать нового пользователя
 
 POST http://localhost:4000/users/register HTTP/1.1
@@ -7,9 +8,9 @@ Content-Type: application/json
 {
   "email": "torans@overlook.net",
   "avatarPath": "torrance.png",
-  "firstname": "Jack",
-  "lastname": "Torrance",
-  "password": "shining"
+  "name": "Jack Torrance",
+  "password": "shining",
+  "type": "Common"
 }
 
 ###
@@ -29,6 +30,6 @@ Content-Type: application/json
 ## Проверить токен пользователя
 
 GET http://localhost:4000/users/login HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuc0BvdmVybG9vay5uZXQiLCJpZCI6IjY0NzBiYzM4M2UzMGRiNjc5ZGZhYzJkMiIsImlhdCI6MTY4NTk3NTQ4MiwiZXhwIjoxNjg2MTQ4MjgyfQ.Gq2-B1egouAnMxmXlR2ElVT6wCa97PS6lxzVI8LnGvo
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuc0BvdmVybG9vay5uZXQiLCJpZCI6IjY3NzNhNmVjNWU3ZmM3NzRiNDQyZTZkNCIsImlhdCI6MTczNTYzMjg0OSwiZXhwIjoxNzM1ODA1NjQ5fQ.Bgwumpx0YJGCnBqXxa4BciFePXxlLn9tOX3wV8tK-Xw
 
 ###

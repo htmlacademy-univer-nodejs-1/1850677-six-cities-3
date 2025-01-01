@@ -9,40 +9,44 @@ import { RestSchema } from '../../libs/config/rest.schema.js';
 import { CreateUserDto } from './dto/create-user.dto.js';
 import { HttpError } from '../../libs/rest/errors/http-error.js';
 import { StatusCodes } from 'http-status-codes';
-import { fillDTO } from '../../helpers/common.js';
+import { createJWT, fillDTO } from '../../helpers/common.js';
 import { UserRdo } from './rdo/user.rdo.js';
 import { LoginUserDto } from './dto/login-user.dto.js';
-import { createJWT } from '../../helpers/createJWT.js';
 import LoggedUserRdo from './rdo/logged-user.rdo.js';
 import { JWT_ALGORITHM } from './user.constant.js';
-import { UnknownRecord } from '../../types/unknown-record,type.js';
+import { UnknownRecord } from '../../types/unknown-record.type.js';
+import UploadAvatarResponse from './rdo/upload-avatar.response.js';
 
 @injectable()
 export class UserController extends BaseController {
   constructor(
     @inject(Component.Logger) protected readonly logger: Logger,
     @inject(Component.UserService) private readonly userService: UserService,
-    @inject(Component.Config) private readonly configService: Config<RestSchema>,
+    @inject(Component.Config) protected readonly configService: Config<RestSchema>,
   ) {
-    super(logger);
+    super(logger, configService);
     this.logger.info('Register routes for UserController...');
+
     this.addRoute({
       path: '/register',
       method: HttpMethod.Post,
       handler: this.create,
       middlewares: [new ValidateDtoMiddleware(CreateUserDto)]
     });
+
     this.addRoute({
       path: '/login',
       method: HttpMethod.Post,
       handler: this.login,
       middlewares: [new ValidateDtoMiddleware(LoginUserDto)]
     });
+
     this.addRoute({
       path: '/login',
       method: HttpMethod.Get,
       handler: this.checkAuthenticate,
     });
+
     this.addRoute({
       path: '/:userId/avatar',
       method: HttpMethod.Post,
@@ -97,16 +101,17 @@ export class UserController extends BaseController {
       }
     );
 
-    this.ok(res, fillDTO(LoggedUserRdo, {
-      email: user.email,
+    this.ok(res, {
+      ...fillDTO(LoggedUserRdo, user),
       token
-    }));
+    });
   }
 
   public async uploadAvatar(req: Request, res: Response) {
-    this.created(res, {
-      filepath: req.file?.path
-    });
+    const { userId } = req.params;
+    const uploadFile = { avatarPath: req.file?.filename };
+    await this.userService.updateById(userId, uploadFile);
+    this.created(res, fillDTO(UploadAvatarResponse, uploadFile));
   }
 
   public async checkAuthenticate({ user: { email } }: Request, res: Response) {
